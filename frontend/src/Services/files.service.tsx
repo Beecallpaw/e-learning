@@ -2,7 +2,7 @@
 import http from '../helpers/http-common'
 
 class FilesDataService {
-    get(id: number) {
+    get(id?: string) {
         return http.get(`/courses/${id}/files`)
     }
 

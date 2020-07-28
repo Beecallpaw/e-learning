@@ -38,6 +38,9 @@ export default class App extends React.Component<IProps, IState> {
                     <Route exact path="/">
                         <Home />
                     </Route>
+                    <Route path="/detail/:id">
+                        <CourseDetail />
+                    </Route>
                 </Switch>
             </BrowserRouter>
         );

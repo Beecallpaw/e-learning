@@ -31,7 +31,7 @@ const Card = (props: IProps) => {
 
     return (
         <div style={cardStyle}>
-            <Link style={linkStyle} to={`/detail/${course.name}`}>
+            <Link style={linkStyle} to={`/detail/${course._id}`}>
                 <div>
                     <div style={titleStyle}>
                         <div style={{ color: "white", fontSize: "18px" }}>{course.name}</div>
