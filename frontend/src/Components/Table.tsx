@@ -31,7 +31,7 @@ interface IProps {
     files: []
 }
 interface IFile {
-    created_at: string, _id: string, filename: string
+    created_at: string, _id: string, filename: string, size: string
 }
 export default function SimpleTable(props: IProps) {
     const classes = useStyles();
@@ -45,11 +45,11 @@ export default function SimpleTable(props: IProps) {
             <TableBody>
                 <TableRow key={row.filename}>
                     <TableCell component="th" scope="row">
-                        {row.filename} <a href="#"><FontAwesomeIcon icon={faDownload} style={{ color: "#51b984" }} /></a>
+                        {row.filename} <a href=""><FontAwesomeIcon icon={faDownload} style={{ color: "#51b984" }} /></a>
                     </TableCell>
                     <TableCell align="center">{moment(row.created_at).format('MMM D, YYYY')}</TableCell>
                     <TableCell align="center">{moment(row.created_at).format('MMM D, YYYY')}</TableCell>
-                    <TableCell align="center">X KB</TableCell>
+                    <TableCell align="center">{row.size} bytes</TableCell>
                 </TableRow>
             </TableBody>
         ))

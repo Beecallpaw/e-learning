@@ -6,7 +6,7 @@ class FilesDataService {
         return http.get(`/courses/${id}/files`)
     }
 
-    create(id: number, data: any) {
+    create(id: string, data: any) {
         return http.post(`/courses/${id}`, data)
     }
 }

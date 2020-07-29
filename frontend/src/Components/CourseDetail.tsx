@@ -11,7 +11,7 @@ export const CourseDetail = () => {
         textDecoration: "none",
         color: "#51b984"
     }
-    let parameter = useParams()
+    let parameter: {id: string} = useParams()
     return (
         <>
             <div style={{ margin: "12px" }}>

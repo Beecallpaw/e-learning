@@ -9,6 +9,10 @@ let FileSchema = new Schema({
         type: String,
         required: true
     },
+    size: {
+        type: String,
+        required: true
+    },
     created_at: {
         type: Date,
         default: new Date()

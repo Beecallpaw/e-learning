@@ -7,6 +7,7 @@ var express_1 = __importDefault(require("express"));
 var mongoose_1 = __importDefault(require("mongoose"));
 var dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
+var fileUpload = require('express-fileupload');
 var app = express_1.default();
 var port = process.env.PORT || 3333;
 app.use(express_1.default.json());
@@ -16,8 +17,11 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
     console.log("connection successful");
 });
+app.use(fileUpload());
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET,POST,DELETE");
+    res.header("Access-Control-Allow-Headers", "Origin,X-Requested-With,Content-Type,Accept");
     next();
 });
 app.get("/", function (req, res) {

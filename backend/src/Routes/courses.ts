@@ -2,8 +2,7 @@ import { Router, Request, Response } from "express"
 import { Course } from "../Models/Course"
 import { validate, getCourse } from "../Service/middleware"
 import { File } from "../Models/File"
-// const multer = require('multer')
-// const uploads = multer({ dest: 'uploads/' })
+import path from 'path'
 
 const router = Router()
 
@@ -67,13 +66,36 @@ router.get("/:id/files", async (req: Request, res: Response) => {
     }
 })
 
-router.post("/:id", async (req: Request, res: Response) => {
+router.post("/:id", async (req: any, res: Response) => {
     try {
-        let data = {
-            filename: "filename.xls",
-            course_id: req.params.id
+        let files = req.files.file
+        let uploadPath = path.resolve(__dirname, '../..')
+        let course_id = req.params.id
+        if(Array.isArray(files)){
+            for (const file of files) {
+                await File.create({
+                    course_id,
+                    filename: file.name,
+                    size: file.size
+                })
+            }
+            files.forEach((file:any) => {
+                file.mv(`${uploadPath}/uploads/${file.name}`, (err: any) => {
+                   console.log(err)
+                } )
+
+            })
+        } else {
+             await File.create({
+                    course_id,
+                    filename: files.name,
+                    size: files.size
+                })
+            files.mv(`${uploadPath}/uploads/${files.name}`, (err: any) => {
+                console.log(err)
+            })
         }
-        await File.create(data)
+
         res.json("successful")
     } catch (err) {
         return res.status(500).json({ message: err.message })
