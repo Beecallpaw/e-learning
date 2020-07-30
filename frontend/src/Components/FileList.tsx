@@ -53,7 +53,7 @@ export class FileList extends React.Component<IProps, IState> {
             <div style={fileListStyle}>
                 <span style={{ margin: "24px", display: "inline-block" }}><strong>FILES AND FOLDERS</strong>
                 </span>
-                <FileUpload show={modalShow} handleClose={this.hideModal} param={this.props.param}/>
+                <FileUpload show={modalShow} handleClose={this.hideModal} getFileList={this.getFileList.bind(this)} param={this.props.param}/>
                 <Button onClick={this.showModal} style={{ backgroundColor: "#51b984", color: "white", float: "right", margin: "20px" }}>Upload File</Button>
                 <SimpleTable files={files} />
 

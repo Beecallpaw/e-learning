@@ -6,6 +6,7 @@ import "../modal.css"
 interface IProps {
     show: boolean,
     handleClose: () => void,
+    getFileList: (param:{id?: string |undefined }) =>  void,
     param: { id: string }
 }
 
@@ -26,11 +27,12 @@ class FileUpload extends React.Component<IProps, IState> {
     handleSubmit() {
         let data = new FormData();
         this.state.files.forEach((file, index) => {
-            console.log(file)
             data.append('file', file)
         });
 
         FileService.create(this.props.param.id, data)
+        this.props.handleClose()
+        this.props.getFileList(this.props.param)
     }
     onImageDrop(files: []) {
         this.setState({ files })
