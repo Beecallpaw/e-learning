@@ -9,7 +9,7 @@ var dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 var fileUpload = require('express-fileupload');
 var app = express_1.default();
-var port = process.env.PORT || 3333;
+var port = process.env.PORT || 3456;
 app.use(express_1.default.json());
 mongoose_1.default.connect(process.env.DATABASE_URL || "", { useNewUrlParser: true, useUnifiedTopology: true });
 var db = mongoose_1.default.connection;

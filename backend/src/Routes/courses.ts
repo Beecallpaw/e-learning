@@ -5,6 +5,7 @@ import { File } from "../Models/File"
 import path from 'path'
 
 const router = Router()
+const uploadPath = path.resolve(__dirname, '../..')
 
 router.get("/",
     async (req: Request, res: Response) => {
@@ -69,7 +70,6 @@ router.get("/:id/files", async (req: Request, res: Response) => {
 router.post("/:id", async (req: any, res: Response) => {
     try {
         let files = req.files.file
-        let uploadPath = path.resolve(__dirname, '../..')
         let course_id = req.params.id
         if(Array.isArray(files)){
             for (const file of files) {
@@ -99,6 +99,19 @@ router.post("/:id", async (req: any, res: Response) => {
         res.json("successful")
     } catch (err) {
         return res.status(500).json({ message: err.message })
+    }
+})
+
+router.get('/file/:id/:filename', async (req, res) => {
+    try{
+        const {id, filename} = req.params
+        const file = await File.find({course_id: id, filename})
+        if(file.length){
+            res.download(`${uploadPath}/${filename}`)
+
+        }
+    }catch(err) {
+        return res.status(500).json({message: err.message})
     }
 })
 

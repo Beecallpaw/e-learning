@@ -6,7 +6,7 @@ dotenv.config()
 const fileUpload = require('express-fileupload')
 
 const app: Express = express()
-const port = process.env.PORT || 3333
+const port = process.env.PORT || 3456
 
 app.use(express.json())
 mongoose.connect(process.env.DATABASE_URL || "", { useNewUrlParser: true, useUnifiedTopology: true });

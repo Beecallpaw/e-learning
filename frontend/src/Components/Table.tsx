@@ -37,6 +37,9 @@ export default function SimpleTable(props: IProps) {
     const classes = useStyles();
 
     const { files } = props;
+    // const downloadFile = () => {
+    //     fetch(`http://localhost:3456/file/${id}/${filename}`).then(res => res.blob()).then(blob => download(blob))
+    // }
     let tableContent;
     if (!files.length) {
         tableContent = <div style={{ margin: "10px" }}>No Data</div>

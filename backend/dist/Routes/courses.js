@@ -45,6 +45,7 @@ var middleware_1 = require("../Service/middleware");
 var File_1 = require("../Models/File");
 var path_1 = __importDefault(require("path"));
 var router = express_1.Router();
+var uploadPath = path_1.default.resolve(__dirname, '../..');
 router.get("/", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var courses, err_1;
     return __generator(this, function (_a) {
@@ -151,13 +152,12 @@ router.get("/:id/files", function (req, res) { return __awaiter(void 0, void 0, 
     });
 }); });
 router.post("/:id", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var files, uploadPath_1, course_id, _i, files_1, file, err_6;
+    var files, course_id, _i, files_1, file, err_6;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 8, , 9]);
                 files = req.files.file;
-                uploadPath_1 = path_1.default.resolve(__dirname, '../..');
                 course_id = req.params.id;
                 if (!Array.isArray(files)) return [3 /*break*/, 5];
                 _i = 0, files_1 = files;
@@ -178,7 +178,7 @@ router.post("/:id", function (req, res) { return __awaiter(void 0, void 0, void 
                 return [3 /*break*/, 1];
             case 4:
                 files.forEach(function (file) {
-                    file.mv(uploadPath_1 + "/uploads/" + file.name, function (err) {
+                    file.mv(uploadPath + "/uploads/" + file.name, function (err) {
                         console.log(err);
                     });
                 });
@@ -190,7 +190,7 @@ router.post("/:id", function (req, res) { return __awaiter(void 0, void 0, void 
                 })];
             case 6:
                 _a.sent();
-                files.mv(uploadPath_1 + "/uploads/" + files.name, function (err) {
+                files.mv(uploadPath + "/uploads/" + files.name, function (err) {
                     console.log(err);
                 });
                 _a.label = 7;
@@ -201,6 +201,27 @@ router.post("/:id", function (req, res) { return __awaiter(void 0, void 0, void 
                 err_6 = _a.sent();
                 return [2 /*return*/, res.status(500).json({ message: err_6.message })];
             case 9: return [2 /*return*/];
+        }
+    });
+}); });
+router.get('/file/:id/:filename', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a, id, filename, file, err_7;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                _b.trys.push([0, 2, , 3]);
+                _a = req.params, id = _a.id, filename = _a.filename;
+                return [4 /*yield*/, File_1.File.find({ course_id: id, filename: filename })];
+            case 1:
+                file = _b.sent();
+                if (file.length) {
+                    res.download(uploadPath + "/" + filename);
+                }
+                return [3 /*break*/, 3];
+            case 2:
+                err_7 = _b.sent();
+                return [2 /*return*/, res.status(500).json({ message: err_7.message })];
+            case 3: return [2 /*return*/];
         }
     });
 }); });
